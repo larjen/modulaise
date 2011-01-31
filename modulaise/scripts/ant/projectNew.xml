@@ -53,6 +53,7 @@ Using boilerplate from  : ${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate
 				<exclude name="**/*.svn"/>
 				<exclude name="**/*.svn/**" />
 				<exclude name="**/boilerplates/projects/**" />
+				<exclude name="**/config-project/**" />
 			</fileset>
 		</copy>
 		
@@ -63,34 +64,39 @@ Using boilerplate from  : ${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate
 				<exclude name="**/*.svn/**" />
 			</fileset>
 		</copy>
+		
+		<!-- replace name of project -->
 		<replace dir="${basedir}/../${projectNew.name}" value="${projectNew.name}">
-			<exclude name="**/boilerplates/**"/>
+			<exclude name="**/modulaise/boilerplates/**"/>
+			<exclude name="**/modulaise/config-global/**"/>
+			<exclude name="**/modulaise/docs/**"/>
+			<exclude name="**/modulaise/lib/**"/>
+			<exclude name="**/modulaise/scripts/**"/>
+			<exclude name="**/modulaise/common/**"/>
 			<exclude name="**/*.svn"/>
 			<exclude name="**/*.svn/**" />
 			<include name="**/**"/>
 		  <replacetoken>__PROJECT_NEW_NAME__</replacetoken>
 		</replace>
+		
+		<!-- replace file hosts of project -->
 		<replace dir="${basedir}/../${projectNew.name}" value="${FILE_HOSTS}">
-			<exclude name="**/boilerplates/**"/>
-			<exclude name="**/*.svn"/>
-			<exclude name="**/*.svn/**" />
-			<include name="**/**"/>
-		  <replacetoken>__FILE_HOSTS__</replacetoken>
+			<include name="README.markdown"/>
+		  	<replacetoken>__FILE_HOSTS__</replacetoken>
 		</replace>
+		
+		<!-- replace file hosts of project -->
 		<replace dir="${basedir}/../${projectNew.name}" value="${FILE_APACHE_CONFIGURATION}">
-			<exclude name="**/boilerplates/**"/>
-			<exclude name="**/*.svn"/>
-			<exclude name="**/*.svn/**" />
-			<include name="**/**"/>
-		  <replacetoken>__FILE_APACHE_CONFIGURATION__</replacetoken>
+			<include name="README.markdown"/>
+			<replacetoken>__FILE_APACHE_CONFIGURATION__</replacetoken>
 		</replace>
+
+		<!-- replace file hosts of project -->
 		<replace dir="${basedir}/../${projectNew.name}" value="${workspace}">
-			<exclude name="**/boilerplates/**"/>
-			<exclude name="**/*.svn"/>
-			<exclude name="**/*.svn/**" />
-			<include name="**/**"/>
-		  <replacetoken>__DIR_WORKSPACE__</replacetoken>
-		</replace>		
+			<include name="README.markdown"/>
+			<replacetoken>__DIR_WORKSPACE__</replacetoken>
+		</replace>
+		
 		<input defaultvalue="${projectNew.name}">
 Create new project wizard (Step 3 of 3)
 				
