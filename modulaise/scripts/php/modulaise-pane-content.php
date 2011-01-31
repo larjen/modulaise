@@ -251,6 +251,7 @@ class ModulaisePaneContent
 			    }
 			}
 		}
+		return true;
 	}
 
 	/**

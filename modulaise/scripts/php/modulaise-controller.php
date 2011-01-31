@@ -326,25 +326,31 @@ Class ModulaiseController{
 				AntPropertiesWriter::getAntProperties();
 				break;
 				
-			case "printpane":
-		
-				// Get ant properties
-				self::initialize();
+			case "printPane":
+				
+				$debug = false;
 				
 				// If we are going to show export pane
-				if (isset($_REQUEST["buildmode"]) && $_REQUEST["buildmode"] == "SHOW_EXPORT"){
-					self::$buildMode = SHOW_EXPORT;					
+				if (isset($_REQUEST["buildMode"]) && $_REQUEST["buildMode"] == "SHOW_EXPORT"){
+					self::$buildMode = SHOW_EXPORT;
 				}
 				
 				// create a dummy page
 				self::createPage("nullstring","nullstring");
 				
-				// if the requested pane has content print it - otherwise print a no content comment
-				if (isset($_REQUEST["pane"]) && self::paneHasContent($_REQUEST["pane"])){
-					self::printPane($_REQUEST["pane"]);
-				}else{
-					echo "<!-- no content found for pane \"".$_REQUEST["pane"]."\" -->";
+				$paneName = $_REQUEST["pane"];
+				
+				if ($debug){
+					$panes = self::getPaneNames();
+					foreach ($panes as $key => $value){
+						echo $key."=".$value."\n";
+					}
+					$paneHasContent =self::paneHasContent($paneName);
+					echo "pane has content = '".(true===$paneHasContent)."'\n";
 				}
+				
+				// if the requested pane has content print it - otherwise print a no content comment
+				self::printPane($_REQUEST["pane"]);
 
 				break;
 		

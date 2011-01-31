@@ -58,7 +58,7 @@ Using boilerplate from  : ${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate
 		</copy>
 		
 		<!-- copy over the boilerplate -->
-		<copy todir="${basedir}/../${projectNew.name}">
+		<copy overwrite="true" todir="${basedir}/../${projectNew.name}">
 			<fileset dir="${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate}">
 				<exclude name="**/*.svn"/>
 				<exclude name="**/*.svn/**" />
