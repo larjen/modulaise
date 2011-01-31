@@ -40,6 +40,7 @@ wordpress.
 Fixed bug: Changing config modulepath setting had side-effects on index of
 pages.
 
+
 v0.7.4 - 2011-01-30
 -------------------------------------------------------------------------------
 
