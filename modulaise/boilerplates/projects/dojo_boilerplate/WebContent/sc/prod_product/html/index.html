@@ -1,0 +1,17 @@
+<?php
+
+global $product_counter;
+
+if (!isset($product_counter)){
+	$product_counter = 0;
+} else {
+	$product_counter++;
+}
+
+?><div class="prod"><!--  encapsulating module with outer div, allowing us to target modules explicitly through css -->
+	<div class="prod-cardtype">
+		<h2>Title</h2>	
+		<p>This is a test product</p>
+		<button productid="unique_product_<?php echo $product_counter; ?>" action="addtocart" class="prod_btnbuy js_buy">Buy</button>
+	</div>	
+</div>
