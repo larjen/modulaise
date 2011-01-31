@@ -311,7 +311,7 @@ Class ModulaiseController{
 	 */
 	public static function indexAction(){
 
-		switch (isset($_REQUEST["action"]) ?$_REQUEST["action"]:"") {
+		switch (isset($_REQUEST["action"]) ? $_REQUEST["action"]:"") {
 			case "build":
 		
 				// Builds the page
@@ -324,6 +324,28 @@ Class ModulaiseController{
 				// Get ant properties
 				require_once ("modulaise-get-ant-properties.php");
 				AntPropertiesWriter::getAntProperties();
+				break;
+				
+			case "printpane":
+		
+				// Get ant properties
+				self::initialize();
+				
+				// If we are going to show export pane
+				if (isset($_REQUEST["buildmode"]) && $_REQUEST["buildmode"] == "SHOW_EXPORT"){
+					self::$buildMode = SHOW_EXPORT;					
+				}
+				
+				// create a dummy page
+				self::createPage("nullstring","nullstring");
+				
+				// if the requested pane has content print it - otherwise print a no content comment
+				if (isset($_REQUEST["pane"]) && self::paneHasContent($_REQUEST["pane"])){
+					self::printPane($_REQUEST["pane"]);
+				}else{
+					echo "<!-- no content found for pane \"".$_REQUEST["pane"]."\" -->";
+				}
+
 				break;
 		
 			default:

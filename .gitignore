@@ -16,10 +16,10 @@ dwsync.xml
 
 # builds
 /temp
-/WebContent/modulaise/builds
 /modulaise/deploy-targets
-/WebContent/sc/_compiled
-/WebContent/sc/index.html
-/WebContent/sc/ChangeLog.txt
+/WebContent/modulaise/builds
 /WebContent/modulaise/pages_cached
 /WebContent/modulaise/pages_compiled
+/WebContent/sc/_compiled
+/WebContent/sc/ChangeLog.txt
+/WebContent/sc/index.html

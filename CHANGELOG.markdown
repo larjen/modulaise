@@ -5,27 +5,26 @@ Changelog
 This is the changelog.
 
 
-v0.7.0 - 2010-12-30
+v0.7.5 - ???
 -------------------------------------------------------------------------------
 
-Committed first version to GitHub, this is not ready for development and is
-considered unstable.
+Adding a basic Wordpress boilerplate for working on Wordpress templates.
 
 
-v0.7.1 - 2011-01-09
+v0.7.4 - 2011-01-30
 -------------------------------------------------------------------------------
 
-All of the documentation files are in place.
+Included a dojo foundation site.
 
-The project is now ready to begin trial runs, in order to weed out any stupid 
-bugs that may have crept in.
+Included JSLint for java to the project, now JavaScript is tested against the
+JSLint library.
 
+Reshuffled entire project to make it work with automated build tool "Hudson", 
+it has no out of project dependencies. 
 
-v0.7.2 - 2011-01-16
--------------------------------------------------------------------------------
-
-Renaming all modulenames to not have a '-' (minus) in them, so as to enable
-dojo.require() and dojo.provide().
+Cleaned up installation procedure, so no need for adding more than two jar
+files to the Ant environment path - and these are only needed for deploying
+static content.
 
 
 v0.7.3 - 2011-01-20
@@ -41,17 +40,24 @@ Fixed bug: Changing config modulepath setting had side-effects on index of
 pages.
 
 
-v0.7.4 - 2011-01-30
+v0.7.2 - 2011-01-16
 -------------------------------------------------------------------------------
 
-Included a dojo foundation site.
+Renaming all modulenames to not have a '-' (minus) in them, so as to enable
+dojo.require() and dojo.provide().
 
-Included JSLint for java to the project, now JavaScript is tested against the
-JSLint library.
 
-Reshuffled entire project to make it work with automated build tool "Hudson", 
-it has no out of project dependencies. 
+v0.7.1 - 2011-01-09
+-------------------------------------------------------------------------------
 
-Cleaned up installation procedure, so no need for adding more than two jar
-files to the Ant environment path - ond those only needed for deploying
-static content.
+All of the documentation files are in place.
+
+The project is now ready to begin trial runs, in order to weed out any stupid 
+bugs that may have crept in.
+
+
+v0.7.0 - 2010-12-30
+-------------------------------------------------------------------------------
+
+Committed first version to GitHub, this is not ready for development and is
+considered unstable.

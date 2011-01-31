@@ -1,5 +1,6 @@
+
 Configuration
-=============
+===============================================================================
 
 These instructions cover how to set up the apache server to serve your new
 project "__PROJECT_NEW_NAME__". 
@@ -8,15 +9,17 @@ Please note that if you are not on windows, or if you have installed your
 Apache server in a different location, you have to customize the relevant
 paths in the following.
 
+
 1. Modify your hosts file
--------------------------
+-------------------------------------------------------------------------------
 
 Add the following line to your hosts file ``__FILE_HOSTS__``:
 
     127.0.0.1 __PROJECT_NEW_NAME__.localhost
 
+
 2. Configure Apache server
---------------------------
+-------------------------------------------------------------------------------
 
 Add the following to your Apache configurations file ``__FILE_APACHE_CONFIGURATION__``:
 
@@ -39,14 +42,17 @@ Add the following to your Apache configurations file ``__FILE_APACHE_CONFIGURATI
       </Directory>
     </VirtualHost>
 
+
 3. Restart Apache server
-------------------------
+-------------------------------------------------------------------------------
 
-Verify succes of installation by pointing your browser to: http://__PROJECT_NEW_NAME__.localhost
+Verify succes of installation by pointing your browser to: 
 
-* * *
+http://__PROJECT_NEW_NAME__.localhost
 
-#### Revision History
+
+Revision History
+-------------------------------------------------------------------------------
 
 *   20101230, [Lars Jensen](mailto:lars.jensen@exenova.dk)
      

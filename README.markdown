@@ -13,6 +13,7 @@ Table of Contents
 *  [What is it not?](#what_not)
 *  [Where to go now?](#documentation)
 *  [Feedback and suggestions](#feedback)
+*  [Inspiration and Acknowledgement](#thanks)
 *  [Revision History](#revision_history)
 
 
@@ -135,6 +136,26 @@ This project is hosted at [GitHub][10], for change requests or bugs please
 [file an issue][11].
 
 Otherwise feel free to fork the project. ;o)
+
+
+<a name="thanks"/>
+
+Inspiration and Acknowledgement
+-------------------------------------------------------------------------------
+
+This project could not have taken shape without the prior work of these
+heroes in total random order - thanks:
+
+*  JSLint for Java by Douglas Crockford and Dominic Mitchell
+*  HTML5Boilerplate project by Paul Irish
+*  YUI Compressor Julien Lecomte and Isaac Schlueter
+*  JSch - Java Secure Channel by Atsuhiko Yamanaka
+
+Inspiration also came from these heroes, thanks:
+
+Nicole Sullivan, Rebecca Murphey and Nicholas C. Zakas.
+
+Apologies to the ones I left out or forgot to mention.
 
 
 <a name="revision_history"/>
