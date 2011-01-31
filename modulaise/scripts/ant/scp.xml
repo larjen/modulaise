@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project>
+	<target name="scp" depends="scp-message,
+		scp-input,
+		scp-unzip,
+		scp-scp">
+	</target>
+	<target name="scp-message">
+		<echo>
+Deploying files via scp
+--------------------------------------------------------------------------------
+Build package           : ${deploy.input.buildpackage}
+Transfertype            : ${deploy.create.message}
+Servername              : ${deploy.server.name}
+Serverport              : ${deploy.server.port}
+Serverpath              : ${deploy.server.path}
+Username                : ${deploy.server.username}
+</echo>
+	</target>
+	<target name="scp-input">
+		<input addproperty="deploy.input.password">
+Deploy wizard
+				
+Input password for ${deploy.server.name}:
+
+</input>
+	</target>
+	<target name="scp-unzip">
+		<unzip dest="${basedir}/temp/${deploy.input.buildpackage}/" src="${basedir}/WebContent/${PATH_BUILDS}/${deploy.input.buildpackage}.zip" overwrite="true" />
+	</target>
+	<target name="scp-scp">
+		<scp port="${deploy.server.port}" 
+			verbose="true" 
+			todir="${deploy.server.username}@${deploy.server.name}:${deploy.server.path}" 
+			password="${deploy.input.password}" 
+			trust="true">
+			<fileset dir="${basedir}/temp/${deploy.input.buildpackage}">
+				<exclude name="**/*.svn" />
+			</fileset>
+		</scp>
+	</target>
+</project>

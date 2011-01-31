@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project>
+	<target name="jslint" depends="jslintMessage,
+		jsLintCheck,
+		jslintFiles">
+	</target>
+	<target name="jslintMessage">
+		<echo>
+Verifying all JavaScript in modules against jslint
+--------------------------------------------------------------------------------
+Verifying files         : ${PATH_WEBFOLDER}/${PATH_MODULES}/**/*.js
+	</echo>
+	</target>
+	<target name="jsLintCheck" description="Checks if there are files to lint">
+		<resourcecount property="jslint.numberOfJavaScriptFiles">
+		    <fileset dir="${PATH_WEBFOLDER}/${PATH_MODULES}">
+		        <include name="**/*.js"/>
+		    	<exclude name="**/*.min.js"/>
+				<exclude name="**/${FOLDER_COMPILED}/**"/>
+				<exclude name="**/_*/**"/>
+		    </fileset>
+		</resourcecount>
+		<condition property="jslint.filesFound" value="true">
+			<not>
+			 	<equals arg1="${jslint.numberOfJavaScriptFiles}" arg2="0"/>
+			</not>
+		</condition>
+	</target>
+	<target name="jslintFiles" description="Runs JSLint against all js files" if="jslint.filesFound">
+		
+		<!-- setup jslint4java -->
+		<taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpath="${basedir}/modulaise/lib/jslint4java-1.4.6/jslint4java-1.4.6.jar" />
+		
+		<mkdir dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/logs"/>
+		<jslint haltOnFailure="false">
+			<formatter type="plain" />
+			<formatter type="plain" destFile="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/logs/jslint-${build.name}.log"/>
+		    <fileset dir="${PATH_WEBFOLDER}/${PATH_MODULES}">
+		        <include name="**/*.js"/>
+		    	<exclude name="**/*.min.js"/>
+				<exclude name="**/${FOLDER_COMPILED}/**"/>
+				<exclude name="**/_*/**"/>
+		    </fileset>
+		</jslint>
+	</target>
+</project>
+
+
+
+
+
+
+
+
+

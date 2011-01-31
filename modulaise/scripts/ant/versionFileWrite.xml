@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project>
+	<target name="versionFileWriter" depends="versionFileWriterMessage,
+		versionFileWriterWrite">
+	</target>
+	<target name="versionFileWriterMessage">
+		<echo>
+Writing version file
+--------------------------------------------------------------------------------
+File                    : ${PATH_WEBFOLDER}/${PATH_MODULES}/index.html
+		</echo>
+	</target>
+	<target name="versionFileWriterWrite">
+		<!-- Write new entry to ChangeLog file 
+		<echo encoding="UTF-8" file="${PATH_WEBFOLDER}/${PATH_MODULES}/ChangeLog.txt" append="true">${line.separator}</echo>
+		-->
+		<loadfile failonerror="false" property="versionFileWriter.historyFile" srcfile="${PATH_WEBFOLDER}/${PATH_MODULES}/ChangeLog.txt"></loadfile>
+		<condition property="versionFileWriter.historyFileNotEmpy" value=" ">
+			<equals arg1="$${versionFileWriter.historyFile}" arg2="${versionFileWriter.historyFile}"/>
+		</condition>
+		<condition property="versionFileWriter.historyFileNotEmpy" value="${versionFileWriter.historyFile}">
+			<not>
+				<equals arg1="$${versionFileWriter.historyFile}" arg2="${versionFileWriter.historyFile}"/>
+			</not>
+		</condition>
+		<echo encoding="UTF-8" file="${PATH_WEBFOLDER}/${PATH_MODULES}/ChangeLog.txt" append="false">Version: ${build.name}${line.separator}${versionFileWriter.historyFileNotEmpy}</echo>
+		<loadfile failonerror="false" property="versionFileWriter.historyFileUpdated" srcfile="${PATH_WEBFOLDER}/${PATH_MODULES}/ChangeLog.txt"></loadfile>
+		<loadfile failonerror="false" property="versionFileWriter.css" srcfile="${basedir}/modulaise/scripts/common/default.css"></loadfile>
+		<loadfile failonerror="false" property="versionFileWriter.footer" srcfile="${basedir}/modulaise/scripts/common/footer.html"></loadfile>
+		<echo encoding="UTF-8" file="${PATH_WEBFOLDER}/${PATH_MODULES}/index.html" append="false"><![CDATA[<!doctype html>
+<html style="width:100%;height:100%;margin:0px;padding:0px;background-color:#ccc;">
+<head>
+	<title>${PROJECT_NAME}: Changelog</title>
+	<style type="text/css">
+	${versionFileWriter.css}
+	</style>
+</head>
+<body>
+<header>
+<h1>Project: ${PROJECT_NAME}, Author: <a href="mailto:${PROJECT_AUTHOR_EMAIL}">${PROJECT_AUTHOR}</a></h1>
+</header>
+<section>
+<p>Most up to date version at the top:</p>
+<pre>${versionFileWriter.historyFileUpdated}</pre>
+</section>
+${versionFileWriter.footer}
+</body>
+</html>]]></echo>
+	</target>
+</project>

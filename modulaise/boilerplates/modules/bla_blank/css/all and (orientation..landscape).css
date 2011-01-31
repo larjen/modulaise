@@ -1,0 +1,9 @@
+/* Stylesheet for __MODULE_SHORTNAME__-__MODULE_LONGNAME__ */
+/* Style adjustments for landscape mode goes here */
+.__MODULE_SHORTNAME__ {
+	float: left;
+}
+
+.__MODULE_SHORTNAME__-inner {
+	border: 4px dotted red;
+}

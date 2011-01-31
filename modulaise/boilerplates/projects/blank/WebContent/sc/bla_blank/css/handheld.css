@@ -1,0 +1,9 @@
+/* Stylesheet for bla_blank */
+.bla {
+	font-size: 10px;
+}
+
+.bla-inner {
+	width: 100px;
+	overflow: hidden;
+}

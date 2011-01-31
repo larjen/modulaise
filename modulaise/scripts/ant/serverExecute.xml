@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project>
+	<target name="serverExecute" depends="
+		server-execute-message,
+		server-execute-server-execute,
+		server-execute-error">
+	</target>
+	<target name="server-execute-message">
+		<echo>
+Running command
+--------------------------------------------------------------------------------
+Port                    : ${scp.port}
+Server                  : ${scp.server}
+Username                : ${scp.username}
+Password                : ${scp.password}
+Execute boolean         : ${scp.executeBoolean}
+Command                 : ${scp.commandline}
+		</echo>
+	</target>	
+	<target name="server-execute-server-execute" depends="server-execute-check-variables-are-set" if="server-execute-variables-are-set">
+		<sshexec 
+			port="${scp.port}" 
+			trust="true" 
+			host="${scp.server}"  
+			username="${scp.username}" 
+			password="${scp.password}" 
+			command="${scp.commandline}" />
+	</target>
+	<target name="server-execute-check-variables-are-set">
+		<condition property="server-execute-variables-are-set">
+			<and>
+				<not><equals arg1="${scp.port}" arg2="$${scp.port}" /></not>
+				<not><equals arg1="${scp.server}" arg2="$${scp.server}" /></not>
+				<not><equals arg1="${scp.username}" arg2="$${scp.username}" /></not>
+				<not><equals arg1="${scp.password}" arg2="$${scp.password}" /></not>
+				<not><equals arg1="${scp.commandline}" arg2="$${scp.commandline}" /></not>
+				<not><equals arg1="${scp.commandline}" arg2="$${scp.commandline}" /></not>
+				<not><equals arg1="${scp.executeBoolean}" arg2="$${scp.executeBoolean}" /></not>
+				<equals arg1="${scp.executeBoolean}" arg2="true" />
+			</and>
+		</condition>
+	</target>
+	<target name="server-execute-error" depends="server-execute-check-variables-are-set" unless="server-execute-variables-are-set">
+		<echo>
+!!! Execution halted !!!
+-------------------------------------------------------------------------------
+One or more of the following variables needs to be set:
+
+Port               : ${scp.port}
+Server             : ${scp.server}
+Username           : ${scp.username}
+Password           : ${scp.password}
+Execute boolean    : ${scp.executeBoolean}
+Command            : ${scp.commandline}
+		</echo>
+	</target>
+	<!--
+	
+	EXAMPLE OF USAGE:
+	
+	<target name="ftp">
+		<ant antfile="../ant-tools/build-scripts/ftp.xml" target="default">
+			<property name="ftp.server" value="${ftp.server}"/>
+			<property name="ftp.username" value="${ftp.username}"/>
+			<property name="ftp.password" value="${ftp.password}"/>
+			<property name="ftp.remote.dir" value="${ftp.remote.dir}"/>
+			<property name="ftp.local.dir" value="${ftp.local.dir}"/>
+		</ant>
+	</target>
+	
+	-->
+</project>

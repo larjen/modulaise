@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<project>
+	<target name="deployTargetNew" depends="deployTargetNewInput,
+		deployTargetNewMessage,
+		deployTargetNewWrite">
+	</target>
+	<!-- 
+	
+	Collect following details:
+	
+	deploy.name
+	deploy.type (scp|ftp)
+	server.name
+	server.port
+	server.path
+	server.username
+		
+	-->
+	<target name="deployTargetNewInput">
+		<input addproperty="deployTargetNew.name">
+Create new deploy target wizard (Step 1 of 7)
+
+Give the new deploy target a name, use only legal filename characters:
+
+</input>
+		<input 
+			defaultvalue="rsync"
+			validargs="scp,ftp"
+			addproperty="deployTargetNew.type">
+Create new deploy target wizard (Step 2 of 7)
+
+Select method of transfer:
+
+</input>
+		<input addproperty="deployTargetNew.server.name">
+Create new deploy target wizard (Step 3 of 7)
+
+Input servername or ip-address:
+
+</input>
+		<condition property="deployTargetNew.defaultPortNumber" value="21">
+			<equals arg1="${deployTargetNew.type}" arg2="ftp"/>
+		</condition>
+		<condition property="deployTargetNew.defaultPortNumber" value="22">
+			<equals arg1="${deployTargetNew.type}" arg2="scp"/>
+		</condition>
+		<condition property="deployTargetNew.defaultPortNumber" value="22">
+			<equals arg1="${deployTargetNew.type}" arg2="rsync"/>
+		</condition>
+		<input defaultvalue="${deployTargetNew.defaultPortNumber}" addproperty="deployTargetNew.server.port">
+Create new deploy target wizard (Step 4 of 7)
+
+Input portnumber:
+
+</input>
+		<input addproperty="deployTargetNew.server.path">
+Create new deploy target wizard (Step 5 of 7)
+
+Input serverpath, use forward slashes:
+
+</input>
+		<input addproperty="deployTargetNew.server.username">
+Create new deploy target wizard (Step 6 of 7)
+
+Input username for the server:
+
+</input>
+		<available file="${basedir}/config-project/${deployTargetNew.name}/deploy.config" type="file" property="deployTargetNew.default.exists" value="true"/>
+		<condition property="deployTargetNew.create.default" value="Yes">
+			<not>
+				<equals arg1="${deployTargetNew.default.exists}" arg2="true"/>
+			</not>
+		</condition>
+		<condition property="deployTargetNew.create.default" value="No">
+			<equals arg1="${deployTargetNew.default.exists}" arg2="true"/>
+		</condition>
+		<condition property="deployTargetNew.create.message" value="">
+			<not>
+				<equals arg1="${deployTargetNew.default.exists}" arg2="true"/>
+			</not>
+		</condition>
+		<condition property="deployTargetNew.create.message" value="${line.separator}WARNING!! There is already a deploy target with that name, proceeding will overwrite the deploy target!">
+			<equals arg1="${deployTargetNew.default.exists}" arg2="true"/>
+		</condition>
+
+		<input 
+			defaultvalue="${deployTargetNew.create.default}"
+			addproperty="deployTargetNew.create" 
+			validargs="No,Yes">
+Create new deploy target wizard (Step 7 of 7)
+
+Do you want to create deploy target "${deployTargetNew.name}"?
+
+Transfertype = ${deployTargetNew.type}
+Servername = ${deployTargetNew.server.name}
+Serverport = ${deployTargetNew.server.port}
+Serverpath = ${deployTargetNew.server.path}
+Username = ${deployTargetNew.server.username}
+
+</input>
+	<condition property="deployTargetNew.abort">
+		<equals arg1="No" arg2="${deployTargetNew.create}"/>
+	</condition>
+	<fail if="deployTargetNew.abort">Build aborted by user.</fail>
+	</target>
+	<target name="deployTargetNewMessage">
+		<echo>
+Preparing new deploy target
+--------------------------------------------------------------------------------
+Writing file            : ${basedir}/${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}
+Transfertype            : ${deployTargetNew.type}
+Servername              : ${deployTargetNew.server.name}
+Serverport              : ${deployTargetNew.server.port}
+Serverpath              : ${deployTargetNew.server.path}
+Username                : ${deployTargetNew.server.username}
+
+
+</echo>
+	</target>
+	<target name="deployTargetNewWrite">
+		<mkdir dir="${basedir}/${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}" />
+		<condition property="deployTargetNew.create.transferType" value="deploy.type.ftp = true">
+			<equals arg1="${deployTargetNew.type}" arg2="ftp"/>
+		</condition>
+		<condition property="deployTargetNew.create.transferType" value="deploy.type.scp = true">
+			<equals arg1="${deployTargetNew.type}" arg2="scp"/>
+		</condition>
+		<condition property="deployTargetNew.create.transferType" value="deploy.type.rsync = true">
+			<equals arg1="${deployTargetNew.type}" arg2="rsync"/>
+		</condition>
+		<condition property="deployTargetNew.type.ftp" value="true">
+			<equals arg1="${deployTargetNew.type}" arg2="ftp"/>
+		</condition>
+		<condition property="deployTargetNew.type.scp" value="true">
+			<equals arg1="${deployTargetNew.type}" arg2="scp"/>
+		</condition>
+		<condition property="deployTargetNew.type.rsync" value="true">
+			<equals arg1="${deployTargetNew.type}" arg2="rsync"/>
+		</condition>
+		<echo encoding="UTF-8" file="${basedir}/${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}/deploy.config" append="false">
+deploy.name = ${deployTargetNew.name}
+${deployTargetNew.create.transferType}
+deploy.server.name = ${deployTargetNew.server.name}
+deploy.server.port = ${deployTargetNew.server.port}
+deploy.server.path = ${deployTargetNew.server.path}
+deploy.server.username = ${deployTargetNew.server.username}
+		</echo>
+	</target>
+	<target name="deployTargetNewRsyncInfo" if="deployTargetNew.type.rsync">
+		<echo>
+Setting up rsync EXPERIMENTAL!!
+--------------------------------------------------------------------------------
+In order to use rsync you will need to create a public private key, and
+export the key to the server.
+		
+On windows you must first install Cygwin to get this to work, taking care to
+install the openssl and rsync package + dependencies.
+
+Next add the cygwin bin/ folder to your windows PATH.
+			
+Open a command line interface and fire off:
+			
+    ssh-keygen
+			
+Leave everything at it's default value, notice that this generates a key pair
+in the folder: /home/{user_name}/.ssh/
+
+Now export this key to the server you want to deploy to by executing this on
+your commandline:
+
+    cd /home/{user_name}/.ssh/
+    scp id_rsa.pub {remote_username}@{remote_host}:~/
+
+This should copy your public key to your host. We need to install the public
+key on the server so it will recognize it:
+
+    ssh {remote_username}@{remote_host}
+    install -dv ~/.ssh
+    chmod 0700 ~/.ssh
+    cat id_rsa.pub >> ~/.ssh/authorized_keys
+    rm id_rsa.pub
+    exit
+
+If everything worked you should be good to go.
+</echo>		
+	</target>
+</project>

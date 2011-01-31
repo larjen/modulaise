@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project>
+	<target name="buildNamer">
+		<taskdef name="buildnamer" classname="dk.exenova.ant.BuildNamer" classpath="${basedir}/modulaise/lib/buildnamer-1.1.1/bin/BuildNamer.jar"/>
+		<taskdef name="timestamper" classname="dk.exenova.ant.Timestamp" classpath="${basedir}/modulaise/lib/buildnamer-1.1.1/bin/BuildNamer.jar"/>
+		<buildnamer property="timestamped.build.name" />
+		<timestamper property="timestamped.build.time" />
+		<buildnumber file="${basedir}/modulaise/config-project/revision.number"/>
+		<property name="build.name" value="${PROJECT_NAME}-${timestamped.build.time}-v${PROJECT_MAJOR}.${PROJECT_MINOR}.${build.number}-${timestamped.build.name}" />
+		<echo>
+Building project:
+--------------------------------------------------------------------------------
+Project                 : ${PROJECT_NAME}
+Buildtag                : ${build.name}
+Java Version            : ${ant.java.version}
+Ant Version             : ${ant.version}
+Modulaise Version       : ${MODULAISE_VERSION}
+Operating System        : ${os.name}
+		</echo>
+	</target>
+</project>

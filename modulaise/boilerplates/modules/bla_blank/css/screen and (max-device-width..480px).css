@@ -1,0 +1,12 @@
+/* Stylesheet for __MODULE_SHORTNAME__-__MODULE_LONGNAME__ */
+.__MODULE_SHORTNAME__ {
+	width: 100%;
+	display: block;
+	float: none;
+	clear: both;
+}
+
+.__MODULE_SHORTNAME__-inner {
+	background-color: red;
+	border: 2px dotted yellow;
+}

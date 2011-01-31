@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<project>
+	<target name="deploy" depends="deployCreateNewDeploy,
+		deployCreateNewBuild,
+		deployInput,
+		deployScp,
+		deployRsync,
+		deployFtp">
+	</target>
+	<target name="deployCreateNewDeploy" unless="ALL_DEPLOY_DESTINATIONS_DEFAULT">
+		<echo>
+NOTICE!
+--------------------------------------------------------------------------------
+No deploy targets found, you are being redirected to create one.
+		</echo>
+		<ant antfile="build.xml" target="New Deploy Target" />
+		<fail>.
+
+NOTICE!
+--------------------------------------------------------------------------------
+In order to deploy, run the the deploy task again.
+		</fail>
+	</target>
+	<target name="deployCreateNewBuild" unless="ALL_BUILDPACKAGES_DEFAULT">
+		<echo>
+NOTICE!
+--------------------------------------------------------------------------------
+No build packages found, building project!
+		</echo>
+		<ant antfile="build.xml" target="Build" />
+		<fail>.
+
+NOTICE!
+--------------------------------------------------------------------------------
+In order to deploy, run the the deploy task again.
+		</fail>
+	</target>
+	<target name="deployInput">
+		<input 
+			defaultvalue="${ALL_DEPLOY_DESTINATIONS_DEFAULT}"
+			validargs="${ALL_DEPLOY_DESTINATIONS}"
+			addproperty="deploy.input.name">
+Deploy wizard (Step 1 of 3)
+			
+Select the target:
+
+</input>
+		<property file="${basedir}/${PATH_TO_DEPLOY_TARGETS}/${deploy.input.name}/deploy.config"/>
+		<input 
+				defaultvalue="${ALL_BUILDPACKAGES_DEFAULT}"
+				validargs="${ALL_BUILDPACKAGES}"
+				addproperty="deploy.input.buildpackage">
+Deploy wizard (Step 2 of 3)
+				
+Select which build package to deploy:
+
+</input>
+		<condition property="deploy.create.message" value="ftp">
+			<equals arg1="${deploy.type.ftp}" arg2="true"/>
+		</condition>
+		<condition property="deploy.create.message" value="scp">
+			<equals arg1="${deploy.type.scp}" arg2="true"/>
+		</condition>
+		<condition property="deploy.create.message" value="rsync">
+			<equals arg1="${deploy.type.rsync}" arg2="true"/>
+		</condition>
+		<input 
+			defaultvalue="No"
+			addproperty="deploy.create" 
+			validargs="No,Yes">
+Deploy wizard (Step 3 of 3)
+
+Do you want to deploy?
+
+Transfertype = ${deploy.create.message}
+Servername = ${deploy.server.name}
+Serverport = ${deploy.server.port}
+Serverpath = ${deploy.server.path}
+Username = ${deploy.server.username}
+			
+Warning: Files on server will be overwritten.
+
+</input>
+	<condition property="deploy.abort">
+		<equals arg1="No" arg2="${deploy.create}"/>
+	</condition>
+	<fail if="deploy.abort">Build aborted by user.</fail>
+	</target>
+	<target name="deployScp" if="deploy.type.scp">
+		<antcall target="scp" />
+	</target>
+	<target name="deployFtp" if="deploy.type.ftp">
+		<antcall target="ftp" />
+	</target>
+	<target name="deployRsync" if="deploy.type.rsync">
+		<antcall target="rsync" />
+	</target>
+</project>

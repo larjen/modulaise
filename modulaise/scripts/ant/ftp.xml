@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project>
+	<target name="ftp" depends="
+		ftp-message,
+		ftp-input,
+		ftp-unzip,
+		ftp-ftp">
+	</target>
+	<target name="ftp-message">
+		<echo>
+Deploying files via ftp
+--------------------------------------------------------------------------------
+Build package           : ${deploy.input.buildpackage}
+Transfertype            : ${deploy.create.message}
+Servername              : ${deploy.server.name}
+Serverport              : ${deploy.server.port}
+Serverpath              : ${deploy.server.path}
+Username                : ${deploy.server.username}
+</echo>
+	</target>
+	<target name="ftp-input">
+		<input addproperty="deploy.input.password">
+Deploy wizard
+				
+Input password for ${deploy.server.name}:
+
+</input>
+	</target>
+	<target name="ftp-unzip">
+		<unzip dest="${basedir}/temp/${deploy.input.buildpackage}/" src="${basedir}/WebContent/${PATH_BUILDS}/${deploy.input.buildpackage}.zip" overwrite="true" />
+	</target>
+	<target name="ftp-ftp">
+		<ftp action="send" port="${deploy.server.port}" server="${deploy.server.name}" remotedir="${deploy.server.path}" userid="${deploy.server.username}" password="${deploy.input.password}" verbose="yes">
+			<fileset dir="${basedir}/temp/${deploy.input.buildpackage}">
+				<exclude name="**/*.svn" />
+			</fileset>
+		</ftp>
+	</target>
+</project>
+
+

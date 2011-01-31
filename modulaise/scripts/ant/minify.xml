@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<project>
+	<target name="minify" depends="
+		minifyMessage,
+		minifyFiles">
+	</target>
+	<target name="minifyMessage">
+		<echo>
+Minifying all javascripts and css files in folders
+--------------------------------------------------------------------------------
+Target folder           : ${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js/
+Target folder           : ${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css/
+Jar executable          : ${build.yuiCompressor}
+		</echo>
+	</target>
+	<target name="minifyFiles" description="Minifies all CSS and JS files">
+		<!-- set path to yuiCompressor -->
+		<property name="build.yuiCompressor" value="${basedir}/modulaise/lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar" />
+		
+		<!-- delete css files -->
+		<mkdir dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css" />
+		<delete>
+			<fileset dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css" includes="*.min.css" />
+		</delete>
+		
+		<!-- minify css -->
+		<apply executable="java" parallel="false" verbose="true" dest="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css/">
+			<fileset dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css/">
+				<!-- exclude these files -->
+				<exclude name="*.min.css"/>
+			</fileset>	
+			<arg line="-jar" />
+			<arg path="${build.yuiCompressor}" />
+			<srcfile />
+			<arg line="--line-break 1000" />
+			<arg line="-o" />
+			<mapper type="glob" from="*.css" to="*.min.css" />
+			<targetfile />
+		</apply>
+		
+		<!-- delete js contents-->
+		<mkdir dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js" />
+		<delete>
+			<fileset dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js" includes="*.min.js" />
+		</delete>
+		
+		<!-- minify js -->
+		<apply executable="java" parallel="false" verbose="true" dest="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js/">
+			<fileset dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js/" includes="*.concatinated.js" />
+			<arg line="-jar" />
+			<arg path="${build.yuiCompressor}" />
+			<srcfile />
+			<arg line="--line-break 200" />
+			<arg line="-o" />
+			<mapper type="glob" from="*.js" to="*.min.js" />
+			<targetfile />
+		</apply>
+
+		<!-- Write the css file -->
+		<loadfile property="phpCallBuildFile.cssFile" srcFile="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css/css.concatinated.min.css" failonerror="false" />
+		<condition property="phpCallBuildFile.cssFileResult" value=" ">
+			<equals arg1="$${phpCallBuildFile.cssFile}" arg2="${phpCallBuildFile.cssFile}" />
+		</condition>
+		<condition property="phpCallBuildFile.cssFileResult" value="${phpCallBuildFile.cssFile}">
+			<not>
+				<equals arg1="$${phpCallBuildFile.cssFile}" arg2="${phpCallBuildFile.cssFile}" />
+			</not>
+		</condition>
+		<echo file="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css/${FILENAME_CSS_COMPILED}" message="__BUILD_TAG__${line.separator}${phpCallBuildFile.cssFileResult}" />
+
+		<!-- Write the js_head file -->
+		<loadfile property="phpCallBuildFile.jsHeadFile" srcFile="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js/js_head.concatinated.min.js" failonerror="false" />
+		<condition property="phpCallBuildFile.jsHeadFileResult" value=" ">
+			<equals arg1="$${phpCallBuildFile.jsHeadFile}" arg2="${phpCallBuildFile.jsHeadFile}" />
+		</condition>
+		<condition property="phpCallBuildFile.jsHeadFileResult" value="${phpCallBuildFile.jsHeadFile}">
+			<not>
+				<equals arg1="$${phpCallBuildFile.jsHeadFile}" arg2="${phpCallBuildFile.jsHeadFile}" />
+			</not>
+		</condition>
+		<echo file="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js/${FILENAME_JSHEAD_COMPILED}" message="__BUILD_TAG__${line.separator}${phpCallBuildFile.jsHeadFileResult}" />
+
+		<!-- Write the js_foot file -->
+		<loadfile property="phpCallBuildFile.jsFootFile" srcFile="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js/js_foot.concatinated.min.js" failonerror="false" />
+		<condition property="phpCallBuildFile.jsFootFileResult" value=" ">
+			<equals arg1="$${phpCallBuildFile.jsFootFile}" arg2="${phpCallBuildFile.jsFootFile}" />
+		</condition>
+		<condition property="phpCallBuildFile.jsFootFileResult" value="${phpCallBuildFile.jsFootFile}">
+			<not>
+				<equals arg1="$${phpCallBuildFile.jsFootFile}" arg2="${line.separator}${phpCallBuildFile.jsFootFile}" />
+			</not>
+		</condition>
+		<echo file="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/js/${FILENAME_JSFOOT_COMPILED}" message="__BUILD_TAG__${line.separator}${phpCallBuildFile.jsFootFileResult}" />
+
+		<!-- write build stamps to files -->
+		<replace dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}" value="/*${line.separator}${line.separator}Buildtag: ${build.name}${line.separator}${line.separator}*/${line.separator}">
+			<include name="**/*.*"/>
+			<replacetoken>__BUILD_TAG__</replacetoken>
+		</replace>
+
+		<!-- in stylesheet create linebreaks with media queries and make sure there is a space between and and start paranthesis -->
+		<replace dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css" value="${line.separator}">
+			<include name="**/*.css"/>
+			<replacetoken>/*!NEWLINE*/</replacetoken>
+		</replace>
+		<replace dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css" value=" and (">
+			<include name="**/*.css"/>
+			<replacetoken> and(</replacetoken>
+		</replace>
+	</target>
+</project>

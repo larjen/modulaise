@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<project>
+	<target name="moduleNew" depends="moduleNewInput,
+		moduleNewMessage,
+		moduleNewWrite">
+	</target>
+	<target name="moduleNewInput">
+
+		<!-- set variables for selecting template -->
+		<condition property="moduleNew.defaultTemplate" value="${DEFAULT_MODULE_BOILERPLATE}">
+			<not>
+				<equals arg1="" arg2="${DEFAULT_MODULE_BOILERPLATE}"/>
+			</not>	
+		</condition>
+		<condition property="moduleNew.defaultTemplate" value="${ALL_MODULE_TEMPLATES_DEFAULT}">
+			<equals arg1="" arg2="${DEFAULT_MODULE_BOILERPLATE}"/>
+		</condition>
+		<input defaultvalue="${moduleNew.defaultTemplate}"
+			addproperty="moduleNew.template"
+			validargs="${ALL_MODULE_TEMPLATES}">
+Create new module wizard (Step 1 of 5)
+
+Select a template to use for your new module:
+
+</input>
+
+		<!-- figure out default values for the rest of the wizard -->
+		<script language="javascript"><![CDATA[
+			
+			// helper function to check if variable is integer
+			
+			function isInteger(s) {
+			  return (s.toString().search(/^-?[0-9]+$/) == 0);
+			}
+
+	        // Split filename for templateName
+
+	        var templateName = project.getProperty("moduleNew.template");
+			var templateName_pieces = templateName.split(project.getProperty("DELIMITER"));
+			
+			if (isInteger(templateName_pieces[0])){
+				project.setProperty("moduleNew.default.type", "Global");
+				project.setProperty("moduleNew.default.shortName", templateName_pieces[1]);
+				project.setProperty("moduleNew.default.longName", templateName_pieces[2]);
+			}else{
+				project.setProperty("moduleNew.default.type", "Normal");
+				project.setProperty("moduleNew.default.shortName", templateName_pieces[0]);
+				project.setProperty("moduleNew.default.longName", templateName_pieces[1]);			
+			}
+
+			]]></script>		
+		
+		<!-- input type of module -->
+		<input 
+			defaultvalue="${moduleNew.default.type}"
+			validargs="Normal,Global,Excluded"
+			addproperty="moduleNew.type">
+Create new module wizard (Step 2 of 5)
+			
+Select the type of module you are going to create:
+
+"Normal", lives on the pages it is included in.
+"Global", lives in all pages.
+"Excluded", excluded, unless specifically added to a page.
+
+</input>
+	 	<condition property="MODULE_TYPE" value="">
+	 		<equals arg1="Normal" arg2="${moduleNew.type}"/>
+	  	</condition>
+		<condition property="MODULE_TYPE" value="0${DELIMITER}">
+			<equals arg1="Global" arg2="${moduleNew.type}"/>
+		</condition>
+		<condition property="MODULE_TYPE" value="${DELIMITER}">
+			<equals arg1="Excluded" arg2="${moduleNew.type}"/>
+		</condition>
+		
+		<!-- input shortname -->
+		<input
+			defaultvalue="${moduleNew.default.shortName}"
+			addproperty="moduleNew.shortCode">
+Create new module wizard (Step 3 of 5)
+
+Select a unique short letter code for your module, this is used to encapsulate your markup and css code, thus making it harder to accidentically overwrite your css code.
+
+Using a shortletter-code is meant to keep overall file-sizes down, while producing less error-prone and maintainable code. For instance instead of using the qualifier "button" in your css and markup, you could use "btn" instead.
+
+Do not start with punctuation (.).
+
+</input>
+		<condition property="MODULE_SHORTNAME" value="short">
+			<equals arg1="" arg2="${moduleNew.shortCode}"/>
+		</condition>
+		<condition property="MODULE_SHORTNAME" value="${moduleNew.shortCode}">
+			<not>
+				<equals arg1="" arg2="${moduleNew.shortCode}"/>
+			</not>	
+		</condition>
+		
+		<!-- input longname -->
+		<input
+			defaultvalue="${moduleNew.default.longName}"
+			addproperty="moduleNew.longName">
+Create new module wizard (Step 4 of 5)
+
+Select a long readable name for your module.
+
+</input>
+		<condition property="MODULE_LONGNAME" value="Long readable name">
+			<equals arg1="" arg2="${moduleNew.longName}"/>
+		</condition>
+		<condition property="MODULE_LONGNAME" value="${moduleNew.longName}">
+			<not>
+				<equals arg1="" arg2="${moduleNew.longName}"/>
+			</not>	
+		</condition>
+		<property name="moduleNew.name" value="${MODULE_TYPE}${MODULE_SHORTNAME}${DELIMITER}${MODULE_LONGNAME}" />
+		<available file="${PATH_WEBFOLDER}/${PATH_MODULES}/${moduleNew.name}" type="dir" property="moduleNew.create.default.exists" value="true"/>
+		<condition property="moduleNew.create.default" value="Yes">
+			<not>
+				<equals arg1="${moduleNew.create.default.exists}" arg2="true"/>
+			</not>
+		</condition>
+		<condition property="moduleNew.create.default" value="No">
+			<equals arg1="${moduleNew.create.default.exists}" arg2="true"/>
+		</condition>
+		<condition property="moduleNew.create.message" value="">
+			<not>
+				<equals arg1="${moduleNew.create.default.exists}" arg2="true"/>
+			</not>
+		</condition>
+		<condition property="moduleNew.create.message" value="${line.separator}WARNING!! There is already a module with that name, proceeding will overwrite the module!">
+			<equals arg1="${moduleNew.create.default.exists}" arg2="true"/>
+		</condition>
+		
+		<!-- confirm creation of new module -->
+		<input 
+			defaultvalue="${moduleNew.create.default}"
+			addproperty="moduleNew.create" 
+			validargs="No,Yes">
+Create new module wizard (Step 5 of 5)
+
+Confirm creation of new module:
+	
+Do you want to create "${moduleNew.name}" based on the template "${moduleNew.template}"?${moduleNew.create.message}
+
+</input>
+	<condition property="moduleNew.abort">
+		<equals arg1="No" arg2="${moduleNew.create}"/>
+	</condition>
+	<fail if="moduleNew.abort">Build aborted by user.</fail>
+</target>
+	<target name="moduleNewMessage">
+		<echo>
+Preparing new module
+--------------------------------------------------------------------------------
+Module name             : ${moduleNew.name}
+Using template          : ${PATH_BOILERPLATES_MODULES}/${moduleNew.template}
+		</echo>
+	</target>
+	<target name="moduleNewWrite">
+		<copy todir="${PATH_WEBFOLDER}/${PATH_MODULES}/${moduleNew.name}">
+			<fileset dir="${PATH_BOILERPLATES_MODULES}/${moduleNew.template}">
+				<exclude name="**/*.svn"/>
+				<exclude name="**/*.svn/**" />
+			</fileset>
+		</copy>
+		<replace dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${moduleNew.name}" value="${MODULE_SHORTNAME}">
+			<exclude name="**/*.svn"/>
+			<exclude name="**/*.svn/**" />
+			<include name="**/**"/>
+		  <replacetoken>__MODULE_SHORTNAME__</replacetoken>
+		</replace>
+		<replace dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${moduleNew.name}" value="${MODULE_LONGNAME}">
+			<exclude name="**/*.svn"/>
+			<exclude name="**/*.svn/**" />
+			<include name="**/**"/>
+		  <replacetoken>__MODULE_LONGNAME__</replacetoken>
+		</replace>		
+		<replace dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${moduleNew.name}" value="${moduleNew.name}">
+			<exclude name="**/*.svn"/>
+			<exclude name="**/*.svn/**" />
+			<include name="**/**"/>
+		  <replacetoken>__MODULE_FULLNAME__</replacetoken>
+		</replace>
+	</target>
+</project>

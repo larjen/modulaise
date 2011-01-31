@@ -1,0 +1,13 @@
+<?php ModulaiseController::printComment("Grab Google CDN's dojo. Fall back to local if necessary"); ?>
+<script type="text/javascript">
+var djConfig={
+        parseOnLoad: true,
+        isDebug: true,
+        baseUrl: "./",
+        modulePaths:{"sc":"/sc"}
+};
+
+</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js" type="text/javascript"></script>
+<script>!window.dojo && document.write(unescape('%3Cscript src="<?php ModulaiseController::printStaticContentPath(); ?>__MODULE_FULLNAME__/js_x/dojo-1.5.min.js"%3E%3C/script%3E'))</script> 

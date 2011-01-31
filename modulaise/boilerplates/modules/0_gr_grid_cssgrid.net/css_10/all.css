@@ -1,0 +1,127 @@
+/* The 1140px Grid by Andy Taylor – http://cssgrid.net – http://www.twitter.com/andytlr – http://www.catchingzebra.com */
+/* Lovingly adapted to have a gr- prefix to enable css separation by Lars Jensen - http://exenova.dk */
+.__MODULE_SHORTNAME__-container {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.__MODULE_SHORTNAME__-row {
+	width: 100%;
+	max-width: 1140px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.__MODULE_SHORTNAME__-1,.__MODULE_SHORTNAME__-2,.__MODULE_SHORTNAME__-3,.__MODULE_SHORTNAME__-4,.__MODULE_SHORTNAME__-5,.__MODULE_SHORTNAME__-6,.__MODULE_SHORTNAME__-7,.__MODULE_SHORTNAME__-8,.__MODULE_SHORTNAME__-9,.__MODULE_SHORTNAME__-10,.__MODULE_SHORTNAME__-11 {
+	margin-right: 3.8%;
+	float: left;
+}
+
+.__MODULE_SHORTNAME__-1 {
+	width: 4.85%;
+}
+
+.__MODULE_SHORTNAME__-2 {
+	width: 13.5%;
+}
+
+.__MODULE_SHORTNAME__-3 {
+	width: 22.15%;
+}
+
+.__MODULE_SHORTNAME__-4 {
+	width: 30.8%;
+}
+
+.__MODULE_SHORTNAME__-5 {
+	width: 39.45%;
+}
+
+.__MODULE_SHORTNAME__-6 {
+	width: 48.1%;
+}
+
+.__MODULE_SHORTNAME__-7 {
+	width: 56.75%;
+}
+
+.__MODULE_SHORTNAME__-8 {
+	width: 65.4%;
+}
+
+.__MODULE_SHORTNAME__-9 {
+	width: 74.05%;
+}
+
+.__MODULE_SHORTNAME__-10 {
+	width: 82.7%;
+}
+
+.__MODULE_SHORTNAME__-11 {
+	width: 91.35%;
+}
+
+.__MODULE_SHORTNAME__-12 {
+	width: 100%;
+	float: left;
+}
+
+.__MODULE_SHORTNAME__-last {
+	margin-right: 0px;
+}
+
+img,object,embed {
+	max-width: 100%;
+}
+
+/* ie */
+.ie .__MODULE_SHORTNAME__-1 {
+	width: 4.7%;
+}
+
+.ie .__MODULE_SHORTNAME__-2 {
+	width: 13.2%;
+}
+
+.ie .__MODULE_SHORTNAME__-3 {
+	width: 22.05%;
+}
+
+.ie .__MODULE_SHORTNAME__-4 {
+	width: 30.6%;
+}
+
+.ie .__MODULE_SHORTNAME__-5 {
+	width: 39%;
+}
+
+.ie .__MODULE_SHORTNAME__-6 {
+	width: 48%;
+}
+
+.ie .__MODULE_SHORTNAME__-7 {
+	width: 56.75%;
+}
+
+.ie .__MODULE_SHORTNAME__-8 {
+	width: 61.6%;
+}
+
+.ie .__MODULE_SHORTNAME__-9 {
+	width: 74.05%;
+}
+
+.ie .__MODULE_SHORTNAME__-10 {
+	width: 82%;
+}
+
+.ie .__MODULE_SHORTNAME__-11 {
+	width: 91.35%;
+}
+
+/* added to make half-column readable with column */
+
+.__MODULE_SHORTNAME__-max6 {
+	max-width: 570px;
+	margin: auto;
+}

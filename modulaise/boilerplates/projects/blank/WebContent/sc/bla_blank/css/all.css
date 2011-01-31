@@ -1,0 +1,17 @@
+/* Stylesheet for bla_blank */
+.bla {
+	width: 30%;
+	height: 200px;
+	display: block;
+	float: left;
+}
+
+.bla-alt {
+	background-color: yellow;
+}
+
+.bla-inner {
+	border: 2px dotted red;
+	margin: 20px;
+	padding: 20px;
+}

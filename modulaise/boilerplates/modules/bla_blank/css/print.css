@@ -1,0 +1,8 @@
+/* Stylesheet for __MODULE_SHORTNAME__-__MODULE_LONGNAME__ */
+.__MODULE_SHORTNAME__ {
+	clear: both;
+}
+
+.__MODULE_SHORTNAME__-inner {
+	background-color: white;
+}

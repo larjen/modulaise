@@ -1,0 +1,24 @@
+.__MODULE_SHORTNAME__-row,.__MODULE_SHORTNAME__-body,.__MODULE_SHORTNAME__-container
+	{
+	width: 100%;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.__MODULE_SHORTNAME__-1,.__MODULE_SHORTNAME__-2,.__MODULE_SHORTNAME__-3,.__MODULE_SHORTNAME__-4,.__MODULE_SHORTNAME__-5,.__MODULE_SHORTNAME__-6,.__MODULE_SHORTNAME__-7,.__MODULE_SHORTNAME__-8,.__MODULE_SHORTNAME__-9,.__MODULE_SHORTNAME__-10,.__MODULE_SHORTNAME__-11,.__MODULE_SHORTNAME__-12
+	{
+	width: auto;
+	float: none;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+/* Type presets */
+body {
+	font-size: 16px;
+	line-height: 24px;
+}

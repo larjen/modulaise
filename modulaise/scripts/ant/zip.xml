@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project>
+	<target name="zip">
+		<echo>
+Building zip file
+--------------------------------------------------------------------------------
+Destination             : ${PATH_WEBFOLDER}/${PATH_BUILDS}/${build.name}.zip
+		</echo>
+		<mkdir dir="${PATH_WEBFOLDER}/${PATH_BUILDS}"/>
+		<zip destfile="${PATH_WEBFOLDER}/${PATH_BUILDS}/${build.name}.zip">
+			<fileset dir="${PATH_WEBFOLDER}">
+				
+				<!-- html files -->
+				<include name="${PATH_PAGES_COMPILED}/*.html"/>
+				
+				<!-- modules -->
+				<include name="**/sc/**"/>
+				<include name="**/**/**"/>
+
+				<!-- files in root folder -->
+				<include name="*.*"/>
+				<include name="**/*.php"/>
+				<include name="**/*.html"/>
+				<include name="**/.htaccess"/>
+				
+				<!-- exclude some folders -->
+				<exclude name="**/${PATH_BUILDS}/**"/>
+				<exclude name="**/${PATH_PAGES}/**"/>
+				<exclude name="**/${PATH_TEMPLATES}**"/>				
+				<exclude name="**/temp/**"/>
+				
+				<!-- exclude these files -->
+				<exclude name="**/*.svn"/>
+				<exclude name="**/*.svn/**" />
+				<exclude name="**/WEB-INF/**" />
+				<exclude name="**/*.psd"/>
+				<exclude name="**/*.swc"/>
+				<exclude name="**/*.fla"/>
+				<exclude name="**/*.as"/>
+				<exclude name="**/*.zip"/>
+				<exclude name="**/*.psd"/>
+				<exclude name="**/*.jsp"/>
+				
+				<!-- exclude root folder php files -->
+				<exclude name="*.php"/>
+				
+			</fileset>
+		</zip>
+	</target>
+</project>

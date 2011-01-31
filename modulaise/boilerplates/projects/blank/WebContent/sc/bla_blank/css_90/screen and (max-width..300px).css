@@ -1,0 +1,12 @@
+/* Stylesheet for bla_blank */
+.bla {
+	width: 49%;
+	display: block;
+	float: left;
+	clear: none;
+}
+
+.bla-inner {
+	background-color: black;
+	color: white;
+}

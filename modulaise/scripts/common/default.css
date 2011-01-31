@@ -1,0 +1,90 @@
+html {
+	background-color: #b0b0b0;
+	width: 100%;
+	height: 100%;
+	color: #666;
+	font-family: 'Lucida Grande', Arial, sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+body {
+	background-color: #f0f0f0;
+	width: 600px;
+	margin: auto;
+	padding: 20px;
+}
+
+section,footer {
+	border-top: 1px solid #ddd;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 16px;
+}
+
+p {
+	margin: 0px 0px 20px 0px;
+}
+
+section,header,footer {
+	padding: 20px 0px 0px 0px;
+	margin: 0px 0px 20px 0px;
+}
+
+table.pi {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table.pi td,table.pi th {
+	padding: 5px;
+	text-align: left;
+}
+
+td.pi-title a {
+	font-weight: bold;
+}
+
+table.pi td.pi-cahced,table.pi td.pi-export {
+	padding-left: 30px;
+	width: 10%;
+}
+
+pre, table.pi tr.pi-odd {
+	background-color: #e0e0e0;
+}
+
+pre {
+	padding: 20px;
+	overflow: auto;
+}
+
+a.btn {
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	font-weight: bold;
+	padding: 3px 10px;
+	color: white;
+	background-color: #FF5E99;
+}
+
+footer a {
+	color: #888;
+}
+
+.pipe {
+	color: #bbb;
+}
+
+.right {
+	text-align: right !important;
+}

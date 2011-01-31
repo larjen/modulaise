@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<project>
+	<target name="pageNew" depends="pageNewInput,
+		pageNewMessage,
+		pageNewWrite">
+	</target>
+	<target name="pageNewInput">
+		<input addproperty="pageNew.name.input">
+Create new page wizard (Step 1 of 3)
+
+Select a unique name for your page, that is also a legal filename, omit extension.
+
+</input>
+		<condition property="pageNew.name" value="Long readable name">
+			<equals arg1="" arg2="${pageNew.name.input}"/>
+		</condition>
+		<condition property="pageNew.name" value="${pageNew.name.input}">
+			<not>
+				<equals arg1="" arg2="${pageNew.name.input}"/>
+			</not>	
+		</condition>
+		<condition property="pageNew.defaultTemplate" value="${DEFAULT_PAGE_BOILERPLATE}">
+			<not>
+				<equals arg1="" arg2="${DEFAULT_PAGE_BOILERPLATE}"/>
+			</not>	
+		</condition>
+		<condition property="pageNew.defaultTemplate" value="${ALL_PAGE_TEMPLATES_DEFAULT}">
+			<equals arg1="" arg2="${DEFAULT_PAGE_BOILERPLATE}"/>
+		</condition>
+		<input defaultvalue="${pageNew.defaultTemplate}"
+			addproperty="pageNew.template"
+			validargs="${ALL_PAGE_TEMPLATES}">
+Create new page wizard (Step 2 of 3)
+
+Select a template as the starting point for your page:
+
+</input>
+		<available file="${PATH_WEBFOLDER}/${PATH_PAGES}/${pageNew.name}.php" type="file" property="pageNew.create.default.exists" value="true"/>
+		<condition property="pageNew.create.default" value="Yes">
+			<not>
+				<equals arg1="${pageNew.create.default.exists}" arg2="true"/>
+			</not>
+		</condition>
+		<condition property="pageNew.create.default" value="No">
+			<equals arg1="${pageNew.create.default.exists}" arg2="true"/>
+		</condition>
+		<condition property="pageNew.create.message" value="">
+			<not>
+				<equals arg1="${pageNew.create.default.exists}" arg2="true"/>
+			</not>
+		</condition>
+		<condition property="pageNew.create.message" value="${line.separator}WARNING!! There is already a page with that name, proceeding will overwrite the page!">
+			<equals arg1="${pageNew.create.default.exists}" arg2="true"/>
+		</condition>		
+		
+		
+		<input 
+			defaultvalue="${pageNew.create.default}"
+			addproperty="pageNew.create" 
+			validargs="No,Yes">
+Create new page wizard (Step 1 of 3)
+
+Confirm creation of new page:
+	
+Do you want to create "${pageNew.name}" based on the template "${pageNew.template}"?${pageNew.create.message}
+
+</input>
+	<condition property="pageNew.abort">
+		<equals arg1="No" arg2="${pageNew.create}"/>
+	</condition>
+	<fail if="pageNew.abort">Build aborted by user.</fail>
+</target>
+	<target name="pageNewMessage">
+		<echo>
+Creating new page
+--------------------------------------------------------------------------------
+Page name               : ${pageNew.name}
+Using template          : ${PATH_BOILERPLATES_PAGES}/${pageNew.template}/index.php
+		</echo>
+	</target>
+	<target name="pageNewWrite">
+		<loadfile failonerror="true" property="newPage.contents" srcfile="${PATH_BOILERPLATES_PAGES}/${pageNew.template}/index.php"></loadfile>
+		<echo encoding="UTF-8" file="${PATH_WEBFOLDER}/${PATH_PAGES}/${pageNew.name}.php" append="false">${newPage.contents}</echo>
+	</target>
+</project>

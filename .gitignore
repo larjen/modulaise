@@ -1,0 +1,25 @@
+# OS or Editor folders
+.DS_Store
+.cache
+.project
+.settings
+thumbs.db
+
+# Dreamweaver added files
+_notes
+dwsync.xml
+
+# Folders to ignore
+.hg
+.svn
+.idea
+
+# builds
+/temp
+/WebContent/modulaise/builds
+/modulaise/deploy-targets
+/WebContent/sc/_compiled
+/WebContent/sc/index.html
+/WebContent/sc/ChangeLog.txt
+/WebContent/modulaise/pages_cached
+/WebContent/modulaise/pages_compiled

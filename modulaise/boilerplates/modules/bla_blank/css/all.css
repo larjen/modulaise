@@ -1,0 +1,17 @@
+/* Stylesheet for __MODULE_SHORTNAME__-__MODULE_LONGNAME__ */
+.__MODULE_SHORTNAME__ {
+	width: 30%;
+	height: 200px;
+	display: block;
+	float: left;
+}
+
+.__MODULE_SHORTNAME__-alt {
+	background-color: yellow;
+}
+
+.__MODULE_SHORTNAME__-inner {
+	border: 2px dotted red;
+	margin: 20px;
+	padding: 20px;
+}

@@ -1,0 +1,9 @@
+/* Stylesheet for bla_blank */
+/* Style adjustments for landscape mode goes here */
+.bla {
+	float: left;
+}
+
+.bla-inner {
+	border: 4px dotted red;
+}

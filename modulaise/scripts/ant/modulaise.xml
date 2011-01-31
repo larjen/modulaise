@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<project>
+	<property file="${basedir}/modulaise/config-global/global.config"/>
+	<property file="${basedir}/modulaise/config-project/project.config"/>
+
+	<!-- define targets -->
+	<target name="Build" description="Builds the entire project" depends="buildNamer,
+			phpCallBuildFile,
+			jslint,
+			minify,
+			versionFileWriter,
+			zip">
+	</target>
+	<target name="New Module" description="Creates a new Module" depends="moduleNew" />
+	<target name="New Page" description="Creates a new Page" depends="pageNew" />
+	<target name="Deploy Project" description="Deploys your project" depends="deploy" />
+	<target name="New Deploy Target" description="Creates a new Deploy target" depends="deployTargetNew" />
+	<target name="JSLint JavaScript" description="Validates JavaScript against JSLint" depends="jslint" />
+	<target name="Minify CSS and JavaScript" description="Minifies JavaScript and CSS" depends="minify" />
+	<target name="Create New Project" description="Creates a new Project" depends="projectNew" />
+	
+	<!-- read ant properties from php -->
+	<loadproperties>
+		<url url="http://${LOCALHOST}?action=getAntProperties"/>
+	</loadproperties>
+	
+	<!-- import build files -->
+	<import file="buildNamer.xml" />
+	<import file="deploy.xml" />	
+	<import file="deployTargetNew.xml" />	
+	<import file="ftp.xml" />
+	<import file="jslint.xml" />
+	<import file="minify.xml" />
+	<import file="moduleNew.xml" />
+	<import file="pageNew.xml" />
+	<import file="phpCallBuildFile.xml" />
+	<import file="rsync.xml" />
+	<import file="scp.xml" />
+	<import file="serverExecute.xml" />
+	<import file="projectNew.xml" />
+	<import file="versionFileWrite.xml" />
+	<import file="zip.xml" />
+	<import file="moduleNew.xml" />	
+</project>

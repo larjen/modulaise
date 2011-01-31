@@ -1,0 +1,10 @@
+/*
+ * Media queries for responsive design
+ */
+ 
+@media all and (orientation:landscape) { /* modulaise-start */
+	
+	/* Style adjustments for landscape mode goes here */
+	
+	/* modulaise-end */
+}

@@ -1,0 +1,9 @@
+/* Stylesheet for __MODULE_SHORTNAME__-__MODULE_LONGNAME__ */
+.__MODULE_SHORTNAME__ {
+	font-size: 10px;
+}
+
+.__MODULE_SHORTNAME__-inner {
+	width: 100px;
+	overflow: hidden;
+}

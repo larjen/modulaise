@@ -1,0 +1,8 @@
+/* Stylesheet for __MODULE_SHORTNAME__-__MODULE_LONGNAME__ */
+.__MODULE_SHORTNAME__ {
+	
+}
+
+.__MODULE_SHORTNAME__-inner {
+	border: 4px dotted blue;
+}

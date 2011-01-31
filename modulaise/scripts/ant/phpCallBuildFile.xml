@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project>
+	<target name="phpCallBuildFile" depends="phpCallBuildFileMessage,
+		phpCallBuildFileTelnet">
+	</target>
+	<target name="phpCallBuildFileMessage">
+		<echo>
+Call PHP build script
+--------------------------------------------------------------------------------
+Destination             : http://${LOCALHOST}:${LOCALHOST_PORT}/modulaise.php?action=build&amp;buildTag=${build.name}
+		</echo>
+	</target>
+	<target name="phpCallBuildFileTelnet">
+		<mkdir dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/logs/"/>
+		<get src="http://${LOCALHOST}:${LOCALHOST_PORT}/modulaise.php?action=build&amp;buildTag=${build.name}"
+			dest="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/logs/php-${build.name}.log"
+			verbose="true"
+		/>
+	    <loadfile property="phpCallBuildFile.message" srcFile="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/logs/php-${build.name}.log"/>
+		<echo message="${phpCallBuildFile.message}"/>
+	</target>
+</project>

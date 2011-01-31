@@ -1,0 +1,10 @@
+/*
+ * Media queries for responsive design
+ */
+ 
+@media all and (orientation:portrait) { /* modulaise-start */
+	
+	/* Style adjustments for portrait mode goes here */
+	
+	/* modulaise-end */
+}
