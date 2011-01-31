@@ -3,8 +3,19 @@
  * @package WordPress
  * @subpackage Toolbox
  */
+
+$cssPane       = "http://".$_SERVER["SERVER_NAME"]."/modulaise.php?action=printPane&pane=PANE_CSS";
+$htmlHeadFirst = "http://".$_SERVER["SERVER_NAME"]."/modulaise.php?action=printPane&pane=PANE_HTML_HEAD_FIRST";
+$jsHead        = "http://".$_SERVER["SERVER_NAME"]."/modulaise.php?action=printPane&pane=PANE_JS_HEAD";
+$htmlHeadLast  = "http://".$_SERVER["SERVER_NAME"]."/modulaise.php?action=printPane&pane=PANE_HTML_HEAD_LAST";
+
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+
+<!--[if lt IE 7 ]><html <?php language_attributes(); ?> class="no-js ie ie6"><![endif]-->
+<!--[if IE 7 ]><html <?php language_attributes(); ?> class="no-js ie ie7"><![endif]-->
+<!--[if IE 8 ]><html <?php language_attributes(); ?> class="no-js ie ie8"><![endif]-->
+<!--[if IE 9 ]><html <?php language_attributes(); ?> class="no-js ie ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"><!--<![endif]-->
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <title><?php
@@ -29,13 +40,22 @@
 
 	?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+<!-- Printing pane: <?php echo $cssPane; ?> -->
+<?php readfile($cssPane);?>
+<!-- Printing pane: <?php echo $htmlHeadFirst; ?> -->
+<?php readfile($htmlHeadFirst);?>
+<!-- Printing pane: <?php echo $jsHead; ?> -->
+<?php readfile($jsHead);?>
+<!-- Printing pane: <?php echo $htmlHeadLast; ?> -->
+<?php readfile($htmlHeadLast);?>
 <?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+
+<?php /* 
 <!--[if lt IE 9]>
 <script src="<?php bloginfo( 'template_directory' ); ?>/html5.js" type="text/javascript"></script>
 <![endif]-->
-
+*/ ?>
 <?php wp_head(); ?>
 </head>
 
