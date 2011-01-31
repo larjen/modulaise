@@ -92,7 +92,7 @@ Using boilerplate from  : ${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate
 		</replace>
 
 		<!-- replace file hosts of project -->
-		<replace dir="${basedir}/../${projectNew.name}" value="${workspace}">
+		<replace dir="${basedir}/../${projectNew.name}" value="${basedir}/..">
 			<include name="README.markdown"/>
 			<replacetoken>__DIR_WORKSPACE__</replacetoken>
 		</replace>
