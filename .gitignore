@@ -17,6 +17,7 @@ dwsync.xml
 # builds
 /temp
 /modulaise/deploy-targets
+/modulaise/config-project/revision.number
 /WebContent/modulaise/builds
 /WebContent/modulaise/pages_cached
 /WebContent/modulaise/pages_compiled
