@@ -21,7 +21,7 @@
 	
 	<!-- read ant properties from php -->
 	<loadproperties>
-		<url url="http://${LOCALHOST}?action=getAntProperties"/>
+		<url url="http://${LOCALHOST}/modulaise.php?action=getAntProperties"/>
 	</loadproperties>
 	
 	<!-- import build files -->
