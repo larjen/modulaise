@@ -26,7 +26,7 @@ Input password for ${deploy.server.name}:
 </input>
 	</target>
 	<target name="scp-unzip">
-		<unzip dest="${basedir}/temp/${deploy.input.buildpackage}/" src="${basedir}/WebContent/${PATH_BUILDS}/${deploy.input.buildpackage}.zip" overwrite="true" />
+		<unzip dest="temp/${deploy.input.buildpackage}/" src="WebContent/${PATH_BUILDS}/${deploy.input.buildpackage}.zip" overwrite="true" />
 	</target>
 	<target name="scp-scp">
 		<scp port="${deploy.server.port}" 
@@ -34,7 +34,7 @@ Input password for ${deploy.server.name}:
 			todir="${deploy.server.username}@${deploy.server.name}:${deploy.server.path}" 
 			password="${deploy.input.password}" 
 			trust="true">
-			<fileset dir="${basedir}/temp/${deploy.input.buildpackage}">
+			<fileset dir="temp/${deploy.input.buildpackage}">
 				<exclude name="**/*.svn" />
 			</fileset>
 		</scp>

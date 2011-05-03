@@ -12,7 +12,7 @@ Create new project wizard (Step 1 of 3)
 You must give your project a name, the name must consist of lowercase ascii characters with no spaces or punctuations.
 
 </input>
-		<available file="${basedir}/../${projectNew.name}" type="dir" property="projectNew.name.exists"/>
+		<available file="../${projectNew.name}" type="dir" property="projectNew.name.exists"/>
 		<fail>
 			<condition>
 				<equals arg1="true" arg2="${projectNew.name.exists}"/>
@@ -20,7 +20,7 @@ You must give your project a name, the name must consist of lowercase ascii char
 
 ERROR!
 --------------------------------------------------------------------------------
-Directory exists        : ${basedir}/../${projectNew.name}
+Directory exists        : ../${projectNew.name}
 			
 The directory already exists, please rename or delete the above directory and try again.
 		</fail>
@@ -37,19 +37,19 @@ Select the boilerplate you will be using for your new project.
 Preparing new project
 --------------------------------------------------------------------------------
 Project name            : ${projectNew.name}
-Directory for project   : ${basedir}/../${projectNew.name}
+Directory for project   : ../${projectNew.name}
 Using boilerplate from  : ${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate}
 		</echo>
 	</target>
 	<target name="projectNewWrite">
 
 		<!-- make the new folders -->
-		<mkdir dir="${basedir}/../${projectNew.name}"/>
-		<mkdir dir="${basedir}/../${projectNew.name}/modulaise"/>
+		<mkdir dir="../${projectNew.name}"/>
+		<mkdir dir="../${projectNew.name}/modulaise"/>
 
 		<!-- copy the modulaise core files -->
-		<copy todir="${basedir}/../${projectNew.name}/modulaise">
-			<fileset dir="${basedir}/modulaise">
+		<copy todir="../${projectNew.name}/modulaise">
+			<fileset dir="modulaise">
 				<exclude name="**/*.svn"/>
 				<exclude name="**/*.svn/**" />
 				<exclude name="**/boilerplates/projects/**" />
@@ -58,7 +58,7 @@ Using boilerplate from  : ${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate
 		</copy>
 		
 		<!-- copy over the boilerplate -->
-		<copy overwrite="true" todir="${basedir}/../${projectNew.name}">
+		<copy overwrite="true" todir="../${projectNew.name}">
 			<fileset dir="${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate}">
 				<exclude name="**/*.svn"/>
 				<exclude name="**/*.svn/**" />
@@ -66,7 +66,7 @@ Using boilerplate from  : ${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate
 		</copy>
 		
 		<!-- replace name of project -->
-		<replace dir="${basedir}/../${projectNew.name}" value="${projectNew.name}">
+		<replace dir="../${projectNew.name}" value="${projectNew.name}">
 			<exclude name="**/modulaise/boilerplates/**"/>
 			<exclude name="**/modulaise/config-global/**"/>
 			<exclude name="**/modulaise/docs/**"/>
@@ -80,19 +80,19 @@ Using boilerplate from  : ${PATH_BOILERPLATES_PROJECTS}/${projectNew.boilerplate
 		</replace>
 		
 		<!-- replace file hosts of project -->
-		<replace dir="${basedir}/../${projectNew.name}" value="${FILE_HOSTS}">
+		<replace dir="../${projectNew.name}" value="${FILE_HOSTS}">
 			<include name="README.markdown"/>
 		  	<replacetoken>__FILE_HOSTS__</replacetoken>
 		</replace>
 		
 		<!-- replace file hosts of project -->
-		<replace dir="${basedir}/../${projectNew.name}" value="${FILE_APACHE_CONFIGURATION}">
+		<replace dir="../${projectNew.name}" value="${FILE_APACHE_CONFIGURATION}">
 			<include name="README.markdown"/>
 			<replacetoken>__FILE_APACHE_CONFIGURATION__</replacetoken>
 		</replace>
 
 		<!-- replace file hosts of project -->
-		<replace dir="${basedir}/../${projectNew.name}" value="${basedir}/..">
+		<replace dir="../${projectNew.name}" value="..">
 			<include name="README.markdown"/>
 			<replacetoken>__DIR_WORKSPACE__</replacetoken>
 		</replace>
@@ -104,11 +104,11 @@ After closing this wizard, two steps remain before your are finished.
 		
 1. Create new Static Web Project
 
-In Eclipse choose to create a new "Static Web Project" with the exact name "${projectNew.name}". This creates a project in the folder: ${basedir}/../${projectNew.name}
+In Eclipse choose to create a new "Static Web Project" with the exact name "${projectNew.name}". This creates a project in the folder: ../${projectNew.name}
 
 2. After configurations
 		
-Read and follow the instructions from the README.markdown file at ${basedir}/../${projectNew.name}/README.markdown
+Read and follow the instructions from the README.markdown file at ../${projectNew.name}/README.markdown
 		
 Press return to close the wizard.
 

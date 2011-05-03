@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="Build">
-	<import file="${basedir}/modulaise/scripts/ant/modulaise.xml"/>
+	<import file="modulaise/scripts/ant/modulaise.xml"/>
 </project>

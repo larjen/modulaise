@@ -5,10 +5,12 @@ Changelog
 This is the changelog.
 
 
-v0.7.5 - ???
+v0.7.5 - v0.7.6
 -------------------------------------------------------------------------------
 
-Adding a basic Wordpress boilerplate for working on Wordpress templates.
+Adding a basic Wordpress boilerplate for working on Wordpress templates. Also
+making support for Netbeans much more transparent.
+
 
 
 v0.7.4 - 2011-01-30

@@ -29,7 +29,7 @@ Verifying files         : ${PATH_WEBFOLDER}/${PATH_MODULES}/**/*.js
 	<target name="jslintFiles" description="Runs JSLint against all js files" if="jslint.filesFound">
 		
 		<!-- setup jslint4java -->
-		<taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpath="${basedir}/modulaise/lib/jslint4java-1.4.6/jslint4java-1.4.6.jar" />
+		<taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpath="modulaise/lib/jslint4java-1.4.6/jslint4java-1.4.6.jar" />
 		
 		<mkdir dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/logs"/>
 		<jslint haltOnFailure="false">

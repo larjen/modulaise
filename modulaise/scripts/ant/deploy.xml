@@ -45,7 +45,7 @@ Deploy wizard (Step 1 of 3)
 Select the target:
 
 </input>
-		<property file="${basedir}/${PATH_TO_DEPLOY_TARGETS}/${deploy.input.name}/deploy.config"/>
+		<property file="${PATH_TO_DEPLOY_TARGETS}/${deploy.input.name}/deploy.config"/>
 		<input 
 				defaultvalue="${ALL_BUILDPACKAGES_DEFAULT}"
 				validargs="${ALL_BUILDPACKAGES}"

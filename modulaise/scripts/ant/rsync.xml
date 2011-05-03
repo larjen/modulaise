@@ -18,10 +18,10 @@ Command                 : rsync -aOvz --chmod=g+w,Da+rX,Fa+r,F-X --exclude .svn 
 </echo>
 	</target>
 	<target name="rsync-unzip">
-		<unzip dest="${basedir}/temp/${deploy.input.buildpackage}/" src="${basedir}/WebContent/${PATH_BUILDS}/${deploy.input.buildpackage}.zip" overwrite="true" />
+		<unzip dest="temp/${deploy.input.buildpackage}/" src="WebContent/${PATH_BUILDS}/${deploy.input.buildpackage}.zip" overwrite="true" />
 	</target>
 	<target name="rsync-rsync">
-   		<exec failonerror="true" output="${basedir}/temp/rsync-logs/${deploy.input.buildpackage}.txt" inputstring="${deploy.input.password}" executable="rsync" dir="${basedir}/temp/${deploy.input.buildpackage}/">
+   		<exec failonerror="true" output="temp/rsync-logs/${deploy.input.buildpackage}.txt" inputstring="${deploy.input.password}" executable="rsync" dir="temp/${deploy.input.buildpackage}/">
 	    	<arg line="-aOvz --chmod=g+w,Da+rX,Fa+r,F-X --exclude .svn . ${deploy.server.username}@${deploy.server.name}:${deploy.server.path}" />
 		</exec>
 	</target>

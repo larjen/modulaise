@@ -25,8 +25,8 @@ File                    : ${PATH_WEBFOLDER}/${PATH_MODULES}/index.html
 		</condition>
 		<echo encoding="UTF-8" file="${PATH_WEBFOLDER}/${PATH_MODULES}/ChangeLog.txt" append="false">Version: ${build.name}${line.separator}${versionFileWriter.historyFileNotEmpy}</echo>
 		<loadfile failonerror="false" property="versionFileWriter.historyFileUpdated" srcfile="${PATH_WEBFOLDER}/${PATH_MODULES}/ChangeLog.txt"></loadfile>
-		<loadfile failonerror="false" property="versionFileWriter.css" srcfile="${basedir}/modulaise/scripts/common/default.css"></loadfile>
-		<loadfile failonerror="false" property="versionFileWriter.footer" srcfile="${basedir}/modulaise/scripts/common/footer.html"></loadfile>
+		<loadfile failonerror="false" property="versionFileWriter.css" srcfile="modulaise/scripts/common/default.css"></loadfile>
+		<loadfile failonerror="false" property="versionFileWriter.footer" srcfile="modulaise/scripts/common/footer.html"></loadfile>
 		<echo encoding="UTF-8" file="${PATH_WEBFOLDER}/${PATH_MODULES}/index.html" append="false"><![CDATA[<!doctype html>
 <html style="width:100%;height:100%;margin:0px;padding:0px;background-color:#ccc;">
 <head>

@@ -65,7 +65,7 @@ Create new deploy target wizard (Step 6 of 7)
 Input username for the server:
 
 </input>
-		<available file="${basedir}/config-project/${deployTargetNew.name}/deploy.config" type="file" property="deployTargetNew.default.exists" value="true"/>
+		<available file="config-project/${deployTargetNew.name}/deploy.config" type="file" property="deployTargetNew.default.exists" value="true"/>
 		<condition property="deployTargetNew.create.default" value="Yes">
 			<not>
 				<equals arg1="${deployTargetNew.default.exists}" arg2="true"/>
@@ -107,7 +107,7 @@ Username = ${deployTargetNew.server.username}
 		<echo>
 Preparing new deploy target
 --------------------------------------------------------------------------------
-Writing file            : ${basedir}/${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}
+Writing file            : ${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}
 Transfertype            : ${deployTargetNew.type}
 Servername              : ${deployTargetNew.server.name}
 Serverport              : ${deployTargetNew.server.port}
@@ -118,7 +118,7 @@ Username                : ${deployTargetNew.server.username}
 </echo>
 	</target>
 	<target name="deployTargetNewWrite">
-		<mkdir dir="${basedir}/${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}" />
+		<mkdir dir="${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}" />
 		<condition property="deployTargetNew.create.transferType" value="deploy.type.ftp = true">
 			<equals arg1="${deployTargetNew.type}" arg2="ftp"/>
 		</condition>
@@ -137,7 +137,7 @@ Username                : ${deployTargetNew.server.username}
 		<condition property="deployTargetNew.type.rsync" value="true">
 			<equals arg1="${deployTargetNew.type}" arg2="rsync"/>
 		</condition>
-		<echo encoding="UTF-8" file="${basedir}/${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}/deploy.config" append="false">
+		<echo encoding="UTF-8" file="${PATH_TO_DEPLOY_TARGETS}/${deployTargetNew.name}/deploy.config" append="false">
 deploy.name = ${deployTargetNew.name}
 ${deployTargetNew.create.transferType}
 deploy.server.name = ${deployTargetNew.server.name}

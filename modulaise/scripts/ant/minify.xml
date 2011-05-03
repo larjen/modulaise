@@ -5,6 +5,8 @@
 		minifyFiles">
 	</target>
 	<target name="minifyMessage">
+      		<!-- set path to yuiCompressor -->
+		<property name="build.yuiCompressor" value="modulaise/lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar" />
 		<echo>
 Minifying all javascripts and css files in folders
 --------------------------------------------------------------------------------
@@ -14,8 +16,6 @@ Jar executable          : ${build.yuiCompressor}
 		</echo>
 	</target>
 	<target name="minifyFiles" description="Minifies all CSS and JS files">
-		<!-- set path to yuiCompressor -->
-		<property name="build.yuiCompressor" value="${basedir}/modulaise/lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar" />
 		
 		<!-- delete css files -->
 		<mkdir dir="${PATH_WEBFOLDER}/${PATH_MODULES}/${FOLDER_COMPILED}/css" />

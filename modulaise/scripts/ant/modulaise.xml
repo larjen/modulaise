@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project>
-	<property file="${basedir}/modulaise/config-global/global.config"/>
-	<property file="${basedir}/modulaise/config-project/project.config"/>
+	<property file="modulaise/config-global/global.config"/>
+	<property file="modulaise/config-project/project.config"/>
 
 	<!-- define targets -->
 	<target name="Build" description="Builds the entire project" depends="buildNamer,
