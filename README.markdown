@@ -53,7 +53,7 @@ degree of [code reusability][3].
 
 ### Maintainable frontend code
 
-By encouraging you to seperate your code into modules, finding and debugging
+By encouraging you to separate your code into modules, finding and debugging
 that troublesome codes becomes easier.
 
 
@@ -111,7 +111,7 @@ documented and easy to grasp.
 You are absolutely free to pick or omit any JavaScript framework.
 
 
-### It is not a CSS framwork
+### It is not a CSS framework
 
 You are absolutely free to pick or omit any CSS framework.
 
